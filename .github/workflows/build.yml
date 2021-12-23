@@ -45,20 +45,20 @@ jobs:
         id: west-zephyr-export
         with:
           args: 'zephyr-export'
-      - name: West Build (blackpill_f401)
+      - name: West Build (stm32f401_blackpill)
         uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
-        id: west-build-blackpill_f401
+        id: west-build-stm32f401_blackpill
         with:
           args: 'build "-s zmk/app -b stm32f401_blackpill -- -DZMK_CONFIG=/github/workspace/config/"'
-      - name: blackpill_f401 DTS File
+      - name: stm32f401_blackpill DTS File
         if: ${{ always() }}
-        run: cat -n build/zephyr/blackpill_f401.dts.pre.tmp
-      - name: blackpill_f401 Kconfig file
+        run: cat -n build/zephyr/stm32f401_blackpill.dts.pre.tmp
+      - name: stm32f401_blackpill Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 blackpill_f401.uf2
-      - name: Archive (blackpill_f401)
+        run: cp build/zephyr/zmk.uf2 stm32f401_blackpill.uf2
+      - name: Archive (stm32f401_blackpill)
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: blackpill_f401.uf2
+          path: stm32f401_blackpill.uf2
