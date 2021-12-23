@@ -1,0 +1,5 @@
+_build/stm32f401_blackpill/obj/src/images.o: \
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/src/images.c \
+ /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/src/images.c :
+ /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h :

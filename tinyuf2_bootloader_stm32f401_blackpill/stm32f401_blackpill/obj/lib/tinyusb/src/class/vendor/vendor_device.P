@@ -1,0 +1,7 @@
+_build/stm32f401_blackpill/obj/lib/tinyusb/src/class/vendor/vendor_device.o: \
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/lib/tinyusb/src/class/vendor/vendor_device.c \
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/lib/tinyusb/src/tusb_option.h \
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/ports/stm32f4/tusb_config.h
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/lib/tinyusb/src/class/vendor/vendor_device.c :
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/lib/tinyusb/src/tusb_option.h :
+ /media/minh/OUTSIDE/Keyboard/tinyuf2/ports/stm32f4/tusb_config.h :
