@@ -1,49 +1,12 @@
-on: [push, pull_request, workflow_dispatch]
+on: [push, pull_request, create, workflow_dispatch]
 
 name: Build
 
 jobs:
-  matrix:
-    runs-on: ubuntu-latest
-    name: Fetch Build Keyboards
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install yaml2json
-        run: python3 -m pip install remarshal
-      - id: set-matrix
-        name: Fetch Build Matrix
-        run: |
-          matrix=$(yaml2json build.yaml | jq -c .)
-          yaml2json build.yaml
-          echo "::set-output name=matrix::${matrix}"
   build:
     runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:2.5
-    needs: matrix
-    name: Build
-    strategy:
-      fail-fast: false
-      matrix: ${{fromJson(needs.matrix.outputs.matrix)}}
+    name: Build Test
     steps:
-      - name: Prepare variables
-        id: variables
-        run: |
-          if [ -n "${{ matrix.shield }}" ]; then
-            EXTRA_CMAKE_ARGS="-DSHIELD=${{ matrix.shield }}"
-            ARTIFACT_NAME="${{ matrix.shield }}-${{ matrix.board }}-zmk"
-            DISPLAY_NAME="${{ matrix.shield }} - ${{ matrix.board }}"
-          else
-            EXTRA_CMAKE_ARGS=
-            DISPLAY_NAME="${{ matrix.board }}"
-            ARTIFACT_NAME="${{ matrix.board }}-zmk"
-          fi
-          echo ::set-output name=extra-cmake-args::${EXTRA_CMAKE_ARGS}
-          echo ::set-output name=artifact-name::${ARTIFACT_NAME}
-          echo ::set-output name=display-name::${DISPLAY_NAME}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Cache west modules
@@ -63,33 +26,39 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: West Init
-        run: west init -l config
+        uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
+        id: west-init
+        with:
+          args: 'init "-l config"'
       - name: West Update
-        run: west update
-      - name: West Zephyr export
-        run: west zephyr-export
-      - name: West Build (${{ steps.variables.outputs.display-name }})
-        run: |
-          west build -s zmk/app -b ${{ matrix.board }} -- -DZMK_CONFIG=${GITHUB_WORKSPACE}/config ${{ steps.variables.outputs.extra-cmake-args }} ${{ matrix.cmake-args }}
-      - name: ${{ steps.variables.outputs.display-name }} DTS File
+        uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
+        id: west-update
+        with:
+          args: 'update'
+      - name: West Config Zephyr Base
+        uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
+        id: west-config
+        with:
+          args: 'config "--global zephyr.base-prefer configfile"'
+      - name: West Zephyr Export
+        uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
+        id: west-zephyr-export
+        with:
+          args: 'zephyr-export'
+      - name: West Build (stm32f401_blackpill)
+        uses: 'docker://zmkfirmware/zephyr-west-action-arm:latest'
+        id: west-build-stm32f401_blackpill
+        with:
+          args: 'build "-s zmk/app -b stm32f401_blackpill -- -DZMK_CONFIG=/github/workspace/config/"'
+      - name: stm32f401_blackpill DTS File
         if: ${{ always() }}
-        run: |
-          if [ -f "build/zephyr/${{ matrix.board }}.dts.pre.tmp" ]; then cat -n build/zephyr/${{ matrix.board }}.dts.pre.tmp; fi
-          if [ -f "build/zephyr/zephyr.dts" ]; then cat -n build/zephyr/zephyr.dts; fi
-      - name: ${{ steps.variables.outputs.display-name }} Kconfig file
+        run: cat -n build/zephyr/stm32f401_blackpill.dts.pre.tmp 
+      - name: stm32f401_blackpill Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
-      - name: Rename artifacts
-        run: |
-          mkdir build/artifacts
-          if [ -f build/zephyr/zmk.uf2 ]
-          then
-            cp build/zephyr/zmk.uf2 "build/artifacts/${{ steps.variables.outputs.artifact-name }}.uf2"
-          elif [ -f build/zephyr/zmk.hex ]
-          then
-            cp build/zephyr/zmk.hex "build/artifacts/${{ steps.variables.outputs.artifact-name }}.hex"
-          fi
-      - name: Archive (${{ steps.variables.outputs.display-name }})
+      - name: Rename zmk.uf2
+        run: cp build/zephyr/zmk.uf2 stm32f401_blackpill.uf2
+      - name: Archive (stm32f401_blackpill)
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: build/artifacts
+          path: stm32f401_blackpill.uf2
