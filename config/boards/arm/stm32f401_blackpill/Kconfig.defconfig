@@ -1,0 +1,27 @@
+# STM32F401 BlackPill board configuration
+
+# Copyright (c) 2021 Pete Johanson
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_STM32F401_BLACKPILL
+
+config BOARD
+	default "stm32f401_blackpill"
+
+if USB
+
+config USB_NRFX
+	default y
+
+config USB_DEVICE_STACK
+	default y
+
+endif # USB
+
+config ZMK_USB
+	default y
+
+config ZMK_BATTERY_VOLTAGE_DIVIDER
+	default y
+
+endif # BOARD_STM32F401_BLACKPILL
