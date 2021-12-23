@@ -19,13 +19,14 @@
 		zephyr,flash = &flash0;
 		//zephyr,ccm = &ccm0;
 		//zephyr,can-primary = &can2;
+	};
 
-		// Keyboard matrix setup here:
-		default_transform: keymap_transform_0 {
-        	compatible = "zmk,matrix-transform";
-        	columns = <2>;
-        	rows = <2>;
-        	map = <
+	// Keyboard matrix setup here:
+	default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <2>;
+        rows = <2>;
+        map = <
 
     	// | SW1  | SW2  |
     	// | SW11 | SW12 |
@@ -34,15 +35,15 @@
     	RC(1,0) RC(1,1)
 
         	>;
-    	};
+    };
 
 		// Col and row setup here: 
-		kscan0: kscan_0 {
-        compatible = "zmk,kscan-gpio-matrix";
-        label = "KSCAN";
-        diode-direction = "col2row";
+	kscan0: kscan_0 {
+    compatible = "zmk,kscan-gpio-matrix";
+    label = "KSCAN";
+    diode-direction = "col2row";
 
-        col-gpios
+    	col-gpios
             = <&gpiob 0 GPIO_ACTIVE_HIGH>	//B0
             , <&gpiob 1 GPIO_ACTIVE_HIGH>	//B1
             ;
@@ -51,8 +52,7 @@
             = <&gpiob 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>	//B2
             , <&gpiob 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>	//B3
             ;
-    	};
-	};
+    };
 
 	leds {
 		compatible = "gpio-leds";
