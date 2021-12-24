@@ -11,4 +11,7 @@ config ZMK_KEYBOARD_NAME
 config ZMK_USB
 	default y
 
+config ZMK_BATTERY_VOLTAGE_DIVIDER
+	default n
+
 endif # BOARD_STM32F401_BLACKPILL
