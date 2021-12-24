@@ -5,4 +5,4 @@
 
 config BOARD_STM32F401_BLACKPILL
 	bool "STM32F401 BlackPill Development Board"
-	depends on SOC_STM32F401CC
+	depends on SOC_STM32F401XC
