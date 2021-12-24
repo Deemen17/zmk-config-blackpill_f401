@@ -56,8 +56,8 @@
             ;
 
         row-gpios
-            = <&gpiob 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>	//B2
-            , <&gpiob 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>	//B3
+            = <&gpiob 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>	//B3
+            , <&gpiob 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>	//B4
             ;
     };
 
