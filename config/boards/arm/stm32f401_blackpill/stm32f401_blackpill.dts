@@ -4,12 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <dt-bindings/zmk/matrix-transform.h>
-
-
 /dts-v1/;
 #include <st/f4/stm32f401Xc.dtsi>
-
+#include <dt-bindings/zmk/matrix-transform.h>
 
 / {
 	model = "stm32f401 blackpill board";
@@ -114,7 +111,7 @@
 };
 
 &i2c1 {
-	pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb9>;
+	pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb7>;
 };
 
 &flash0 {
