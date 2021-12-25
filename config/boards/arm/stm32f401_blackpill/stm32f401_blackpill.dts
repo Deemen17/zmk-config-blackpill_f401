@@ -104,10 +104,6 @@
 	status = "okay";
 };
 
-&usb {
-	status = "okay";
-};
-
 &usart2 {
 	current-speed = <11500>;
 	status = "okay";
