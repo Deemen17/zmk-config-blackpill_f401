@@ -1,11 +1,11 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/rgb.h>
 
 
 #define DEFAULT 0
 #define LOWER   1
 #define RAISE   2
-
 
 / {
     keymap {
@@ -28,11 +28,11 @@
         lower_layer {
             bindings = <
             
-&kp ESC      &kp GRAVE &kp N1   &kp N2   &kp N3    &kp N4    &kp N5 &kp N6 &kp N7 &kp N8 &kp N9    &kp N0   &kp MINUS &kp EQUAL &kp BSLH &kp DEL
-&kp C_VOL_UP &kp TAB   &kp Q    &kp UP   &kp E     &kp R     &kp T  &kp Y  &kp U  &kp I  &kp O     &kp P    &kp LBKT  &kp RBKT           &kp BSPC
-&kp C_VOL_DN &kp CLCK  &kp LEFT &kp DOWN &kp RIGHT &kp F     &kp G  &kp H  &kp J  &kp K  &kp L     &kp SEMI &kp SQT                      &kp RET
-             &kp LSHFT &kp Z    &kp X    &kp C     &kp V     &kp B  &kp B  &kp N  &kp M  &kp COMMA &kp DOT  &kp FSLH  &kp RSHFT          &trans
-             &kp LCTRL          &kp LALT           &kp SPACE &mo RAISE     &kp SPACE     &reset             &bootloader
+&rgb_ug RGB_TOG &rgb_ug RGB_EFF &kp N1   &kp N2   &kp N3    &kp N4    &kp N5 &kp N6 &kp N7 &kp N8 &kp N9    &kp N0   &kp MINUS &kp EQUAL &kp BSLH &kp DEL
+&kp C_VOL_UP    &rgb_ug RGB_EFR &kp Q    &kp UP   &kp E     &kp R     &kp T  &kp Y  &kp U  &kp I  &kp O     &kp P    &kp LBKT  &kp RBKT           &kp BSPC
+&kp C_VOL_DN    &rgb_ug RGB_BRI &kp LEFT &kp DOWN &kp RIGHT &kp F     &kp G  &kp H  &kp J  &kp K  &kp L     &kp SEMI &kp SQT                      &kp RET
+                &rgb_ug RGB_BRD &kp Z    &kp X    &kp C     &kp V     &kp B  &kp B  &kp N  &kp M  &kp COMMA &kp DOT  &kp FSLH  &kp RSHFT          &trans
+                &rgb_ug RGB_COLOR_HSB(128,100,100) &kp LALT           &kp SPACE &mo RAISE     &kp SPACE     &reset             &bootloader
             
             >;
 
