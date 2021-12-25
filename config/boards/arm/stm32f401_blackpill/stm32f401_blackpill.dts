@@ -6,7 +6,12 @@
 
 /dts-v1/;
 #include <st/f4/stm32f401Xc.dtsi>
+#include <st/f4/stm32f401Xe.dtsi>
+#include <st/f4/stm32f401c(d-e)ux-pinctrl.dtsi>
 #include <dt-bindings/zmk/matrix-transform.h>
+
+#include <arm/armv7-m.dtsi>
+#include <st/mem.h>
 
 / {
 	model = "stm32f401 blackpill board";
@@ -106,12 +111,20 @@
 	status = "okay";
 };
 
-&spi1 {
-	pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
-};
+/*
+	Add i2c & spi from blackpill
+	https://github.com/nrfconnect/sdk-zephyr/blob/main/boards/arm/blackpill_f401ce/blackpill_f401ce.dts
+*/
 
 &i2c1 {
-	pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb7>;
+	pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb9>;
+	status = "okay";
+	clock-frequency = <I2C_BITRATE_FAST>;
+};
+
+&spi1 {
+	pinctrl-0 = <&spi1_sck_pa5 &spi1_nss_pa4 &spi1_miso_pa6 &spi1_mosi_pa7>;
+	status = "okay";
 };
 
 &flash0 {
