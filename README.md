@@ -1,5 +1,5 @@
 
-# Testing ZMK on cheap Green(Black)pill STM32F401CCU6
+# Testing ZMK Firmware on cheap Green-Blackpill STM32F401CCU6
 
 ![image](https://user-images.githubusercontent.com/95753855/147224400-07c82a33-d80b-4757-b311-69117fd78a8d.png)
 
