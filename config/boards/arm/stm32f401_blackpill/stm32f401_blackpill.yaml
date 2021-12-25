@@ -13,3 +13,9 @@ supported:
   - pwm
   - counter
   - usb
+  - gpio
+  - i2c
+  - spi
+  - kscan
+  - can
+  - usb_device

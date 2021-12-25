@@ -27,7 +27,7 @@
 
         lower_layer {
             bindings = <
-            
+
 &rgb_ug RGB_TOG &rgb_ug RGB_EFF &kp N1   &kp N2   &kp N3    &kp N4    &kp N5 &kp N6 &kp N7 &kp N8 &kp N9    &kp N0   &kp MINUS &kp EQUAL &kp BSLH &kp DEL
 &kp C_VOL_UP    &rgb_ug RGB_EFR &kp Q    &kp UP   &kp E     &kp R     &kp T  &kp Y  &kp U  &kp I  &kp O     &kp P    &kp LBKT  &kp RBKT           &kp BSPC
 &kp C_VOL_DN    &rgb_ug RGB_BRI &kp LEFT &kp DOWN &kp RIGHT &kp F     &kp G  &kp H  &kp J  &kp K  &kp L     &kp SEMI &kp SQT                      &kp RET

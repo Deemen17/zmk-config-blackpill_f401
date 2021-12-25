@@ -104,13 +104,21 @@
 	status = "okay";
 };
 
+&usb {
+	status = "okay";
+};
+
 &usart2 {
 	current-speed = <11500>;
 	status = "okay";
 };
 
 &spi1 {
-	status = "okay";
+	pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+};
+
+&i2c1 {
+	pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb9>;
 };
 
 &flash0 {
